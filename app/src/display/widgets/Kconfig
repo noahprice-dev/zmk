@@ -36,4 +36,7 @@ config ZMK_WIDGET_WPM_STATUS
     select LV_USE_LABEL
     select ZMK_WPM
 
+config  ZMK_WIDGET_CUSTOM_STATUS
+    bool "Widget for custom status display"
+    select LV_USE_LABEL
 endmenu
