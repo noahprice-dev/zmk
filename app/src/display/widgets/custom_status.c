@@ -16,7 +16,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 // ? Default text
-static char pending_text[MAX_TEXT_LEN] = "Waiting...";
+static char pending_text[MAX_TEXT_LEN] = "Default";
 
 // 3. Setter - updates the LVGL label for each custom status widget
 static void set_status_text(lv_obj_t *label, const char *text) { lv_label_set_text(label, text); }
