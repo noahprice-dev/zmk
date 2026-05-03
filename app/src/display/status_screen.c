@@ -14,6 +14,11 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_CUSTOM_STATUS)
+#include <zmk/display/widgets/custom_status.h>
+#endif
+
+// ? Widget Index
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_BATTERY_STATUS)
 static struct zmk_widget_battery_status battery_status_widget;
 #endif
@@ -32,6 +37,10 @@ static struct zmk_widget_layer_status layer_status_widget;
 
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
 static struct zmk_widget_wpm_status wpm_status_widget;
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_CUSTOM_STATUS)
+static struct zmk_widget_custom_status custom_status_widget;
 #endif
 
 lv_obj_t *zmk_display_status_screen() {
@@ -64,6 +73,11 @@ lv_obj_t *zmk_display_status_screen() {
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
     zmk_widget_wpm_status_init(&wpm_status_widget, screen);
     lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_CUSTOM_STATUS)
+    zmk_widget_custom_status_init(&custom_status_widget, screen);
+    lv_obj_align(zmk_widget_custom_status_obj(&custom_status_widget), LV_ALIGN_CENTER, 0,0);
 #endif
     return screen;
 }
