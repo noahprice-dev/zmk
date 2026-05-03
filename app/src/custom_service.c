@@ -38,11 +38,11 @@ static ssize_t write_custom_char(struct bt_conn *conn, const struct bt_gatt_attr
     
     // Copy received bytes into our buffer and null terminate.
     memcpy(current_text, buf, len);
-    current_text[len] = '\0' // Terminate our message with a 0 (null) to let LVGL know we are done.
+    current_text[len] = '\0'; // Terminate our message with a 0 (null) to let LVGL know we are done.
     
     LOG_DBG("Received Display update: %s", current_text);
     zmk_widget_custom_status_set_text(current_text);
-    return len
+    return len;
 }
 
 // Service declaration

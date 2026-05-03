@@ -725,3 +725,8 @@ osource "$(ZMK_CONFIG)/boards/shields/*/Kconfig.shield"
 rsource "Kconfig.defaults"
 
 source "Kconfig.zephyr"
+
+config ZMK_CUSTOM_SERVICE
+    bool "Custom GAT display service"
+    depends on BT
+    depends on ZMK_DISPLAY

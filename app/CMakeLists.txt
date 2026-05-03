@@ -134,3 +134,6 @@ if (CONFIG_ZMK_STUDIO_RPC)
 endif()
 
 zephyr_cc_option(-Wfatal-errors)
+
+# Add custom GATT Service
+target_sources_ifdef(CONFIG_ZMK_CUSTOM_SERVICE app PRIVATE src/custom_service.c)

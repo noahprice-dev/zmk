@@ -9,6 +9,7 @@ struct zmk_widget_custom_status {
 };
 
 int zmk_widget_custom_status_init(struct zmk_widget_custom_status *widget, lv_obj_t *parent);
-void zmk_widget_custom_status_set_text(struct zmk_widget_custom_status *widget, char *text);
+
+void zmk_widget_custom_status_set_text(const char *text);
 
 lv_obj_t *zmk_widget_custom_status_obj(struct zmk_widget_custom_status *widget);
