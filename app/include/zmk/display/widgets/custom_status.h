@@ -2,6 +2,8 @@
 
 #include <lvgl.h>
 
+// ? Maximum message body length
+#define MAX_TEXT_LEN 64
 // Forward declare our custom struct so consumers are aware of the type
 struct zmk_widget_custom_status {
     sys_snode_t node;

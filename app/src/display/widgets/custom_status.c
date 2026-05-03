@@ -6,7 +6,7 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-// 1. Our widget instance struct
+// 1. Our widget instance struct (Defined in header)
 // struct zmk_widget_custom_status {
 //     sys_snode_t node;
 //     lv_obj_t *obj;
@@ -15,9 +15,17 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 // 2. The list of all instances of this widget
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
-// 3. Setter - updates the LVGL label
+// ? Default text
+static char pending_text[MAX_TEXT_LEN] = "Waiting...";
+
+// 3. Setter - updates the LVGL label for each custom status widget
 static void set_status_text(lv_obj_t *label, const char *text) { lv_label_set_text(label, text); }
+
 void zmk_widget_custom_status_set_text(const char *text) {
+    // Overwrite the pending text buffer - ensure we have a null termination.
+    strncpy(pending_text, text, MAX_TEXT_LEN - 1);
+    pending_text[MAX_TEXT_LEN -1] = '\0';
+    
     // Fetch all `custom_status` widgets
     struct zmk_widget_custom_status *widget;
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
@@ -28,7 +36,7 @@ void zmk_widget_custom_status_set_text(const char *text) {
 // 4. Initializer - creates the LVGL object and registers the instance
 int zmk_widget_custom_status_init(struct zmk_widget_custom_status *widget, lv_obj_t *parent) {
     widget->obj = lv_label_create(parent);
-    set_status_text(widget->obj, "Hello ZMK!");
+    set_status_text(widget->obj, pending_text);
     sys_slist_append(&widgets, &widget->node);
     return 0;
 }

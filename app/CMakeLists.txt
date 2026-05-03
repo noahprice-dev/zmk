@@ -110,6 +110,9 @@ target_sources(app PRIVATE src/main.c)
 add_subdirectory(src/display/)
 add_subdirectory_ifdef(CONFIG_SETTINGS src/settings/)
 
+# Add custom GATT Service
+target_sources_ifdef(CONFIG_ZMK_CUSTOM_SERVICE app PRIVATE src/custom_service.c)
+
 if (CONFIG_ZMK_STUDIO_RPC)
   # For some reason this is failing if run from a different sub-file.
   list(APPEND CMAKE_MODULE_PATH ${ZEPHYR_BASE}/modules/nanopb)
@@ -135,5 +138,3 @@ endif()
 
 zephyr_cc_option(-Wfatal-errors)
 
-# Add custom GATT Service
-target_sources_ifdef(CONFIG_ZMK_CUSTOM_SERVICE app PRIVATE src/custom_service.c)
